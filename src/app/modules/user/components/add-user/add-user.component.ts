@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FilesType } from 'src/app/shared/interfaces';
 import { UserService } from '../../providers/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 export const REG_EX = {
   name: '^[a-zA-Z0-9]*$',
   email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -32,6 +33,7 @@ export class AddUserComponent implements OnInit {
     private userService: UserService,
     private sanitizer: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: any = {},
+    private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AddUserComponent>
   ) {
     this.controls = this.userForm.controls;
@@ -70,8 +72,10 @@ export class AddUserComponent implements OnInit {
       }
       formData.append('avatar', this.file);
       this.userService.addUser(formData).subscribe(res => {
-        this.dialogRef.close(true)
+        this.dialogRef.close(true);
+        this.openSnackBar('User created');
       }, err => {
+        this.openSnackBar(err.error.err);
         console.log(err);
       });
     }
@@ -91,7 +95,9 @@ export class AddUserComponent implements OnInit {
       }
       this.userService.updateUser(id, formData).subscribe(res => {
         this.dialogRef.close(true);
+        this.openSnackBar('Updated');
       }, err => {
+        this.openSnackBar(err.error.err);
         console.log(err);
       });
     }
@@ -116,6 +122,12 @@ export class AddUserComponent implements OnInit {
 
   get btnText() {
     return this.data && this.data.editView ? 'Update User' : 'Create User';
+  }
+
+  openSnackBar(msg: string) {
+    this.snackBar.open(msg, '', {
+      duration: 5* 1000,
+    });
   }
 
 }

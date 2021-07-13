@@ -10,7 +10,7 @@
         <button mat-raised-button color="primary" (click)="addNewUser()">Add New User</button>
     </div>
   
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2" >
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0" >
 
         <!-- Position Column -->
         <ng-container matColumnDef="fname">
@@ -39,7 +39,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button color="warn" (click)="delete(element)">
+                <button mat-icon-button color="warn" (click)="confirmDelete(element)">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" (click)="edit(element)">

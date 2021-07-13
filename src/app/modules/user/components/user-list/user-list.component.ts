@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from '../../providers/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-user-list',
@@ -37,7 +38,11 @@ export class UserListComponent implements OnInit {
   }
 
   addNewUser() {
-    this.dialog.open(AddUserComponent)
+    this.dialog.open(AddUserComponent).afterClosed().subscribe(res => {
+      if (res) {
+        this.getAllData();
+      }
+    })
   }
 
   edit(user: User) {
@@ -53,7 +58,15 @@ export class UserListComponent implements OnInit {
     })
   }
 
-  delete(user: User) {
+  confirmDelete(user: User) {
+    this.dialog.open(ConfirmDialogComponent).afterClosed().subscribe(res => {
+      if (res) {
+        this.delete(user)
+      }
+    })
+  }
+
+  private delete(user: User) {
     this.showLoader = true;
     this.userService.deleteUser(user._id).subscribe(res => {
       this.getAllData();
