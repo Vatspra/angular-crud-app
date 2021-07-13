@@ -1,0 +1,73 @@
+.flex {
+    display: flex;
+}
+
+.flex-row-centered {
+    @extend .flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column-centered {
+    @extend .flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pad-8 {
+    padding: 8px;
+}
+.pad-16 {
+    padding: 16px;
+}
+
+.avatar {
+    vertical-align: middle;
+    margin: auto;
+    margin-bottom: 16px;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    font-size: 120px;
+    .card {
+        position: absolute;
+        top: 4px;
+        right: -8px;
+        /* left: -9px; */
+        border-radius: 50% !important;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        .mat-icon {
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .card-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4px;
+        }
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.user-form {
+    form {
+        width: 100%;
+    }
+    min-width: 400px;
+    .mat-form-field {
+        width: 100%;
+    }
+}
