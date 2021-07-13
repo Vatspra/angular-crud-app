@@ -112,7 +112,7 @@ export class AddUserComponent implements OnInit {
 
 
   getFile() {
-    const fileId = this.data.avatar;
+    const fileId = this.data.user.avatar;
     if (fileId) {
       this.userService.getFile(fileId).subscribe((res: any) => {
         this.imgSrc = this.sanitizer.bypassSecurityTrustResourceUrl(res.file) as any;
